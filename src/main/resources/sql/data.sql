@@ -1,1 +1,0 @@
-INSERT INTO "user" (email, password) VALUES ("familybudget@familybudget.com.br", "$2a$10$X4hdkfV/p6w9k1yhQFzvquDhxnjbq153jxlG018I9Fjb5RItkuxsG");
