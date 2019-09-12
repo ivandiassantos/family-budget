@@ -3,6 +3,7 @@ package br.com.familybudget.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,22 +16,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.familybudget.dto.TokenDto;
 import br.com.familybudget.form.LoginForm;
+import br.com.familybudget.form.RegisterForm;
 import br.com.familybudget.service.TokenService;
+import br.com.familybudget.service.UserService;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping(value = "/api/v1/auth", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
-	
+
 	@Autowired
 	private AuthenticationManager authManager;
-	
+
 	@Autowired
 	private TokenService tokenService;
+	
+	@Autowired
+	private UserService userService;
 
-	@PostMapping
+	@PostMapping(value = "/authenticate")
 	public ResponseEntity<TokenDto> authenticate(@RequestBody @Valid LoginForm form) {
 		UsernamePasswordAuthenticationToken loginData = form.converter();
-		
+
 		try {
 			Authentication authentication = authManager.authenticate(loginData);
 			String token = tokenService.generateToken(authentication);
@@ -40,4 +46,10 @@ public class AuthenticationController {
 		}
 	}
 	
+	@PostMapping(value = "/register")
+	public ResponseEntity register(@RequestBody @Valid RegisterForm form) {
+		userService.register(form);
+		return ResponseEntity.ok().build();
+	}
+
 }

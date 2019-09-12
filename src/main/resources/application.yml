@@ -1,17 +1,16 @@
 
 spring:
     datasource:
-        driver-class-name: org.postgresql.Driver
-        platform: postgres
-        url: jdbc:postgresql://localhost:5432/family-budget
-        username: postgres
-        password: postgres
-#    flyway:#      locations: classpath:/db/migration
-#      url: jdbc:postgresql://localhost:5432/postgres
-#      user: postgres
-#      password: postgres
+      url: jdbc:h2:file:~/family-budget
+      username: sa
+      password: 
+      initialization-mode: always
+    h2:
+      console:
+        enabled: true
+        path: /h2-console
     jpa:
-        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        database-platform: org.hibernate.dialect.H2Dialect
         generate-ddl: false
         hibernate:
             ddl-auto: none

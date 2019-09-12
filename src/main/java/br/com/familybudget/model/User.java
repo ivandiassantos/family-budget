@@ -12,9 +12,12 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import br.com.familybudget.form.RegisterForm;
 
 @Entity
-@Table(name = "user", schema = "public")
+@Table(name = "user")
 public class User implements UserDetails {
 	
 	private static final long serialVersionUID = -1010496541534289620L;
@@ -23,10 +26,20 @@ public class User implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
+	@Column(name = "name")
+	private String name;
 	@Column(name = "email")
 	private String email;
 	@Column(name = "password")
 	private String password;
+	
+	public User() {}
+
+	public User(RegisterForm form) {
+		this.name = form.getName();
+		this.email = form.getEmail();
+		this.password = new BCryptPasswordEncoder().encode(form.getPassword());
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -65,6 +78,10 @@ public class User implements UserDetails {
 	
 	public Long getId() {
 		return id;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 }
