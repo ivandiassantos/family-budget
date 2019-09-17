@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.familybudget.dto.TokenDto;
+import br.com.familybudget.exception.BusinessException;
 import br.com.familybudget.form.LoginForm;
 import br.com.familybudget.form.RegisterForm;
 import br.com.familybudget.service.TokenService;
@@ -48,8 +49,13 @@ public class AuthenticationController {
 	
 	@PostMapping(value = "/register")
 	public ResponseEntity register(@RequestBody @Valid RegisterForm form) {
-		userService.register(form);
-		return ResponseEntity.ok().build();
+		try {
+			userService.register(form);
+			return ResponseEntity.ok().build();
+		}catch (BusinessException e) {
+			return ResponseEntity.badRequest().build();
+		}
+		
 	}
 
 }
