@@ -1,24 +1,46 @@
 
 spring:
     datasource:
-      url: jdbc:h2:file:~/family-budget;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO
-      username: sa
-      password: 
+      #data: classpath:/sql/data.sql
+      url: jdbc:postgresql://localhost:5432/family-budget
+      username: postgres
+      password: postgres
       initialization-mode: always
-    h2:
-      console:
-        enabled: true
-        path: /h2-console
+      driver-class-name: org.postgresql.Driver
+      schema: classpath:/sql/schema.sql
     jpa:
-        database-platform: org.hibernate.dialect.H2Dialect
+        database-platform: org.hibernate.dialect.PostgreSQL95Dialect
         generate-ddl: false
         hibernate:
             ddl-auto: none
         show-sql: true
         properties: 
           hibernate:
+            show_sql: true 
+            use_sql_comments: true 
+            format_sql: true
             temp:
               use_jdbc_metadata_defaults: false                  
+#spring:
+#    datasource:
+#      url: jdbc:h2:file:~/family-budget;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO
+#      username: sa
+#      password: 
+#      initialization-mode: always
+#    h2:
+#      console:
+#        enabled: true
+#        path: /h2-console
+#    jpa:
+#        database-platform: org.hibernate.dialect.H2Dialect
+#        generate-ddl: false
+#        hibernate:
+#            ddl-auto: none
+#        show-sql: true
+#        properties: 
+#          hibernate:
+#            temp:
+#              use_jdbc_metadata_defaults: false                  
 familybudget:
     jwt:
         secret: A+X;fTJP&Pd,TD9dwVq(hsHX,ya^<wsD_UK7L+@=S;{'CydP]{v@}G'b>et;yz$*\yL5S8EJN:%P:X%H9>#nYLrX}@\s?CQcpspH,2emzBc!Q[V'AYa~uzF8WR~AUrMzxp/V$9([S9X#zj/CH('#]B_Hc+%fGhe27YB;^j4\Xk=Ju"Ap~_&<L;=!Z;!,2UP;!hF3P]j85#*`&T]/kB/W^6$v~u6qpejL>kY^f)sy4:qTq_Ec!-z!@aAp~sLKGU>$

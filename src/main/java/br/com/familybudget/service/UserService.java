@@ -20,7 +20,7 @@ public class UserService {
 	@Transactional
 	public void register(RegisterForm form) throws BusinessException{
 		Optional<User> optionalUser = userRepository.findByEmail(form.getEmail());
-		if(optionalUser.isEmpty()) {
+		if(optionalUser.isPresent()) {
 			throw new BusinessException("Usuário já foi cadastrado.");
 		}
 		User user = new User(form);

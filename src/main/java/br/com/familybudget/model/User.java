@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -17,13 +18,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import br.com.familybudget.form.RegisterForm;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema = "public")
 public class User implements UserDetails {
 	
 	private static final long serialVersionUID = -1010496541534289620L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @SequenceGenerator(sequenceName = "public.user_seq", allocationSize = 1, name = "user_seq")
 	@Column(name = "id")
 	private Long id;
 	@Column(name = "name")
