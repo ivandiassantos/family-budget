@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.familybudget.constants.RestConstants;
 import br.com.familybudget.dto.TokenDto;
 import br.com.familybudget.exception.BusinessException;
 import br.com.familybudget.form.LoginForm;
@@ -22,7 +23,7 @@ import br.com.familybudget.service.TokenService;
 import br.com.familybudget.service.UserService;
 
 @RestController
-@RequestMapping(value = "/api/v1/auth", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = RestConstants.AUTH_PATH, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
 
 	@Autowired
